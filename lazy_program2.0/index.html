@@ -4,31 +4,64 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="function.js"></script>
-	<style>
-		#clock {
-			font-size: 50px;
-			text-align: center;
-			margin-top: 10px;
-		}
-		button {
-			font-size: 20px;
-			margin-top: 20px;
-			margin-left: 50%;
-			transform: translateX(-50%);
-		}
-	</style>
+	<link rel="stylesheet" href="style.css">
 	<title></title>
 </head>
-<body>
-	<div id="clock"></div>
-	<div>
-		<button id="open-youtube">YOUTUBE</button>
+<body onload="initClock()">
+	<div class="datetime">
+		<div class="date">
+			<span id="day">day</span>,
+			<span id="month">month</span>
+			<span id="date">date</span>,
+			<span id="year">year</span>
+		</div>
+		<div class="time">
+			<span id="hour">00</span>:
+			<span id="min">00</span>:
+			<span id="sec">00</span>
+			<span id="period">AM</span>
+		</div>
 	</div>
-	<div>
-		<button id="open-discord">DISCORD</button>
+	<div class="grid-line-container">
+		<div>
+			<button id="open-profile">42 PROFILE</button>
+		</div>
+		<div>
+			<button id="open-locate">42 LOCATE</button>
+		</div>
+		<div>
+			<button id="open-chatgpt">CHATGPT</button>
+		</div>
+		<div>
+			<button id="open-gemini">GEMINI</button>
+		</div>
 	</div>
-	<div>
-		<button id="open-steam">STEAM</button>
+	<div class="grid-container">
+		<div>
+			<button id="open-youtube">
+				<img src="img/youtube-light.svg" alt="youtube" width="40" height="40">
+			</button>
+		</div>
+		<div>
+			<button id="open-github">
+				<img src="img/github-light.svg" alt="github" width="40" height="40">
+			</button>
+		</div>
+		<div>
+			<button id="open-discord">
+				<img src="img/discord-light.svg" alt="discord" width="40" height="40">
+			</button>
+		</div>
+		<div>
+			<button id="open-notion">
+				<img src="img/notion-light.svg" alt="notion" width="40" height="40">
+			</button>
+		</div>
+		<div>
+			<button id="open-steam">
+				<img src="img/steam-light.svg" alt="steam" width="40" height="40">
+			</button>
+		</div>
 	</div>
 </body>
 </html>
