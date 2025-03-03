@@ -2,7 +2,7 @@ Last year, I create an app to help me easily track my website by click. (https:/
 After learning HTML, CSS, and JavaScript, I discovered a framework called Electron, which allows to build apps with those langguage. 
 So, I started using them to create my app. Now i'm not only able to track my website, i also able to track my app and folder.
 
-<img src="https://github.com/wenjuin95/desktop_tool/blob/main/img/Screenshot%202025-03-03%20200847.png" />
+<img src="https://github.com/wenjuin95/desktop_tool/blob/main/img/Screenshot%202025-03-03%20203637.png" />
 
 ## Prerequisites
 1. node
