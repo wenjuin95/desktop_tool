@@ -1,5 +1,6 @@
 const { ipcRenderer } = require('electron');
 const fs = require('fs');
+const { exec } = require('child_process');
 
 // function updateClock() {
     //     const now = new Date();
@@ -18,7 +19,7 @@ const fs = require('fs');
     //     const timeString = `${String(hours).padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
     //     document.getElementById('clock').innerHTML = timeString;
     // }
-    
+
     // setInterval(updateClock, 1000);
     // updateClock(); // Initial call to display the clock immediately
     function updateClock() {
@@ -31,15 +32,15 @@ const fs = require('fs');
             m = now.getMinutes(),
             s = now.getSeconds(),
             pe = "AM";
-            
+
             if (h == 0) {
             h = 12;
         }
         if (h > 12) {
             h = h - 12;
             pe = "PM";
-        } 
-        
+        }
+
         Number.prototype.pad = function(digits) {
             var n = this.toString();
             while (n.length < digits) {
@@ -47,7 +48,7 @@ const fs = require('fs');
             }
             return n;
         }
-    
+
         var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
                       "Oct", "Nov", "Dec"];
         var week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -57,12 +58,12 @@ const fs = require('fs');
             document.getElementById(ids[i]).firstChild.nodeValue = values[i];
         }
     }
-    
+
     function initClock() {
         updateClock();
         window.setInterval(updateClock, 1000);
     }
-    
+
 document.addEventListener('DOMContentLoaded', () => {
     //open 42 profile
     document.getElementById('open-profile').addEventListener('click', () => {
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //open discord
     document.getElementById('open-discord').addEventListener('click', () => {
-        const discord_path = 'C:\\Users\\Dell\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Discord Inc\\Discord.lnk';
+        const discord_path = 'C:\\Users\\wenjuin\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Discord Inc\\Discord.lnk';
         fs.access(discord_path, fs.constants.F_OK, (err) => {
             if (err) {
                 ipcRenderer.send('open-link', 'https://discord.com/');
@@ -112,6 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //open steam
     document.getElementById('open-steam').addEventListener('click', () => {
-        ipcRenderer.send('open-program', 'C:\\Users\\Dell\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Steam\\Steam.lnk');
+        ipcRenderer.send('open-program', 'C:\\Users\\wenjuin\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Steam\\Steam.lnk');
     });
+
+    //open wsl folder
+	document.getElementById('open-wsl').addEventListener('click', () => {
+		ipcRenderer.send('open-folder', '\\\\wsl$\\Ubuntu\\home\\wenjuin');
+	});
 });
