@@ -6,12 +6,12 @@ const createWindow = () => {
 	const { width, height } = screen.getPrimaryDisplay().workAreaSize; //get the screen size
     const win = new BrowserWindow({
         width: 380,
-        height: 440,
+        height: 460,
 		title: '',
 		resizable: false, //can't resize the window
 		minimizable: false, //can't minimize the window
         titleBarStyle: 'hidden', //hide the minimize, maximize and close buttons
-		x: width - 380, 
+		x: width - 380,
 		y: 0,
         webPreferences: {
             nodeIntegration: true,
@@ -59,5 +59,17 @@ ipcMain.on('open-program', (event, program) => {
             return;
         }
         console.log(`stdout: SUCCESS ${stdout}`);
+    });
+});
+
+// for opening folder
+ipcMain.on('open-folder', (event, folderPath) => {
+    exec(`explorer.exe "${folderPath}"`, (err) => {
+        if (err) {
+            console.error('Failed to open directory:', err);
+            return;
+        } else {
+			console.log('Directory opened');
+		}
     });
 });
