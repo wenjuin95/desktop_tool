@@ -75,10 +75,17 @@ document.addEventListener('DOMContentLoaded', () => {
         ipcRenderer.send('open-link', 'https://locatepeer.vercel.app/');
     });
 
+	//open slot
+	document.getElementById('open-slot').addEventListener('click', () => {
+        ipcRenderer.send('open-link', 'https://profile.intra.42.fr/slots');
+    });
+
+	//open chatgpt
     document.getElementById('open-chatgpt').addEventListener('click', () => {
         ipcRenderer.send('open-link', 'https://chatgpt.com/');
     });
 
+	//open gemini
     document.getElementById('open-gemini').addEventListener('click', () => {
         ipcRenderer.send('open-link', 'https://gemini.google.com/app');
     });
@@ -103,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const discord_path = 'C:\\Users\\wenjuin\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Discord Inc\\Discord.lnk';
         fs.access(discord_path, fs.constants.F_OK, (err) => {
             if (err) {
-                ipcRenderer.send('open-link', 'https://discord.com/');
+                ipcRenderer.send('open-link', 'https://discord.com/channels/@me');
             }
             else {
                 ipcRenderer.send('open-program', discord_path);
@@ -111,13 +118,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    //open steam
-    document.getElementById('open-steam').addEventListener('click', () => {
-        ipcRenderer.send('open-program', 'C:\\Users\\wenjuin\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Steam\\Steam.lnk');
-    });
-
     //open wsl folder
 	document.getElementById('open-wsl').addEventListener('click', () => {
-		ipcRenderer.send('open-folder', '\\\\wsl$\\Ubuntu\\home\\wenjuin');
+		ipcRenderer.send('open-folder', '\/home\/welow');
 	});
+
+	////hide/show grid
+	//const gridLineContainer = document.querySelector('.grid-line-container');
+    //const gridContainer = document.querySelector('.grid-container');
+
+    //function showContainers() {
+    //    gridLineContainer.classList.add("show");
+    //    gridContainer.classList.add("show");
+    //}
+
+    //function hideContainers() {
+    //    gridLineContainer.classList.remove("show");
+    //    gridContainer.classList.remove("show");
+    //}
+
+    //// Listen for mouseover and mouseout events
+    //document.addEventListener('mouseover', function() {
+    //    showContainers();
+    //});
+
+    //document.addEventListener('mouseout', function() {
+    //    hideContainers();
+    //});
 });
