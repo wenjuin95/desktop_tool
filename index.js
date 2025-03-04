@@ -1,30 +1,30 @@
 const { app, BrowserWindow, shell, ipcMain, screen } = require('electron');
 const { exec } = require('child_process');
+const os = require('os');
 
-//create window
+// Create window
 const createWindow = () => {
-	const { width, height } = screen.getPrimaryDisplay().workAreaSize; //get the screen size
+    const { width, height } = screen.getPrimaryDisplay().workAreaSize; // Get the screen size
     const win = new BrowserWindow({
-        width: 380,
-        height: 460,
-		title: '',
-		resizable: false, //can't resize the window
-		minimizable: false, //can't minimize the window
-        titleBarStyle: 'hidden', //hide the minimize, maximize and close buttons
-		x: width - 380,
-		y: 0,
+        width: 390,
+        height: 360,
+        title: '',
+        resizable: false, // Allow resizing
+        minimizable: false, // Can't minimize the window
+        titleBarStyle: 'hidden', // Hide the minimize, maximize, and close buttons
+        x: width - 390,
+        y: 0,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
         },
     });
 
-    win.loadFile('index.html'); //load the html file
-    // win.webContents.openDevTools(); //open dev tool for debug
+    win.loadFile('index.html'); // Load the HTML file
+    // win.webContents.openDevTools(); // Open dev tools for debugging
 };
 
-
-//ensure window created when app is ready
+// Ensure window is created when app is ready
 app.whenReady().then(() => {
     createWindow();
 
@@ -35,19 +35,19 @@ app.whenReady().then(() => {
     });
 });
 
-//close app when all windows are closed
+// Close app when all windows are closed
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
 });
 
-// for opening links in the default browser
+// For opening links in the default browser
 ipcMain.on('open-link', (event, url) => {
     shell.openExternal(url);
 });
 
-// for opening programs
+// For opening programs
 ipcMain.on('open-program', (event, program) => {
     exec(`"${program}"`, (error, stdout, stderr) => {
         if (error) {
@@ -62,14 +62,36 @@ ipcMain.on('open-program', (event, program) => {
     });
 });
 
-// for opening folder
+
+// Open folder
 ipcMain.on('open-folder', (event, folderPath) => {
-    exec(`explorer.exe "${folderPath}"`, (err) => {
+    const platform = os.platform();
+    let cmd;
+
+    // Open folder based on platform
+    if (platform === 'win32') {
+        // For WSL paths, use wslview or the WSL.exe command
+        if (folderPath.startsWith('/')) {
+            cmd = `wsl.exe --exec xdg-open "${folderPath}"`;
+        } else {
+            cmd = `explorer.exe "${folderPath}"`;
+        }
+    } else if (platform === 'linux') {
+        cmd = `xdg-open "${folderPath}"`;  // Correct command for Linux
+    } else if (platform === 'darwin') {
+        cmd = `open "${folderPath}"`;  // For macOS
+    } else {
+        console.error('Unsupported platform');
+        return;
+    }
+
+    exec(cmd, (err) => {
         if (err) {
             console.error('Failed to open directory:', err);
             return;
         } else {
-			console.log('Directory opened');
-		}
+            console.log('Directory opened');
+        }
     });
 });
+
