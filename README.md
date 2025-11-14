@@ -17,5 +17,3 @@ So, I started using them to create my app. Now i'm not only able to track my web
 # Note
 I won't go further how to setup and implement. you can just go to this website and learn how to crete app before refer my code
 https://www.electronjs.org/docs/latest/tutorial/tutorial-first-app
-
-<img width="1920" height="1072" alt="Image" src="https://github.com/user-attachments/assets/1988b0c9-fb95-443c-a76c-7df9f199ffab" />
